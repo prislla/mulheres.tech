@@ -22,14 +22,19 @@
  function runApp() {
 
   // Carrega a página inicial do site quando este iniciar:
-  loadPage('policies');
+  loadPage('about');
 
   /**
    * jQuery → Quando houver click em um elemento <a>, execute o aplicativo 
    * "routerLink":
    **/
-   // $('a').click(routerLink);
-   $(document).on('click', 'a', routerLink);
+  $(document).on('click', 'a', routerLink);
+
+  // Prepara o menu dropdown:
+  resize();
+
+  // Se a largura da tela mudar, reajusta o menu dropdown:
+  $(window).resize(resize);
 
 }
 
@@ -38,12 +43,25 @@
  */
 function routerLink() {
 
+  // Quando acessa qualquer link, oculta o menu dropdown:
+  hideMenu();
+
   /**
    * jQuery → Recebe o atributo "href" do link clicado e armazena em 'href':
    * A função "$(this)" faz referência ao elemento que foi clicado e disparou 
    * este processo.
    **/
   var href = $(this).attr('href');
+
+  // Se o link clicado é o botão do menu...
+  if (href == 'menu') {
+
+    // Chama a função que controla o menu dropdown:
+    toggleMenu();
+
+    // Sai deste aplicativo sem fazer mais nada:
+    return false;
+  }
 
   /**
    * Se faz referência a link externo que começa com "http://" OU "https://",
@@ -143,7 +161,92 @@ function setTitle(title = '') {
 }
 
 /**
- * Cria o menu de navegação complementar de sobre:
+ * resize() → Aplicativo que ajusta o menu dropdown conforme a resolução 
+ * (width) da viewport. Temos em "index.html" 3 elementos a serem controlados:
+ *     • Os itens do menu normal, com a classe ".dropable";
+ *     • O botão que controla o menu, com id "#btnMenu";
+ *     • O menu dropdown em sí, com o id "#dropable".
+ */
+// Ajusta o menu dropdown:
+function resize() {
+
+  // jQuery → Oculta o menu:
+  $('#dropable').hide('fast');
+
+  // Se a largura da tela é maior que 574px...
+  if (window.innerWidth > 574) {
+
+    // jQuery → Oculta o botão do menu:
+    $('#btnMenu').hide(0);
+
+    // jQuery → Mostra o menu normal:
+    $('.dropable').show(0);
+
+    // Se não...
+  } else {
+
+    // jQuery → Oculta o menu normal:
+    $('.dropable').hide(0);
+
+    // jQuery → Mostra o botão do menu:
+    $('#btnMenu').show(0);
+
+  }
+}
+
+/**
+ * toggleMenu() → Aplicativo que controla a exibição do menu dropdown.
+ */
+function toggleMenu() {
+
+  // jQuery → Se o menu está visível...
+  if ($('#dropable').is(":visible")) {
+
+    // Chama a função que oculta o menu:
+    hideMenu();
+
+    // Se não...
+  } else {
+
+    // Chama a função que mostra o menu:
+    showMenu();
+  }
+}
+
+/**
+ * hideMenu() → Aplicativo que oculta o menu dropdown e também aplica o efeito
+ * de animação no ícone do botão de menu. A classe "fa-rotate-90" que gira o 
+ * ícone, faz parte da biblioteca "Font Awesome". Referências:
+ *     https://fontawesome.com/docs/web/style/rotate
+ */
+function hideMenu() {
+
+  // jQuery → Oculta o menu:
+  $('#dropable').hide('fast');
+
+  // jQuery → Remove rotação do ícone do botão do menu:
+  $('#btnMenu i').removeClass('fa-rotate-90');
+}
+
+/**
+ * showMenu() → Aplicativo que mostra o menu dropdown e também aplica o efeito
+ * de animação no ícone do botão de menu. 
+ */
+function showMenu() {
+
+  // jQuery → Mostra o menu:
+  $('#dropable').show('fast');
+
+  // jQuery → Rotaciona o ícone do botão do menu:
+  $('#btnMenu i').addClass('fa-rotate-90');
+}
+
+/**
+ * Menu de navegação complementar da seção "Sobre...", em HTML.
+ * 
+ * Como temos várias páginas nessa seção, não é necessário ficar repetindo o
+ * trecho de código abaixo para mostrar o menu em cada página, basta exibir o 
+ * valor da variável "aboutMenu" no elemento desejado.
  */
 var aboutMenu = `
 <a href="site"><i class="fa-solid fa-globe fa-fw"></i><span>Sobre o site</span></a>

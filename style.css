@@ -199,10 +199,16 @@
  }
  
  /* Torna o menu principal responsivo à telas maiores */
- @media screen and (min-width: 480px) {
+ @media (min-width: 575px) {
  
-   #wrap>nav a {
+   /* Ajustas os itens de menu para inline */
+   #wrap>nav a, .dropable {
      flex-direction: row;
+   }
+ 
+   /* Oculta botão do menu e o menu em resoluções maiores */
+   #btnMenu, #dropable {
+     display: none;
    }
  
    /* Diminui tamanho dos ícones */
@@ -215,6 +221,7 @@
      margin-top: 0;
      margin-left: .4rem;
    }
+ 
  }
  
  /************
@@ -369,4 +376,73 @@
  /* Rack para exibir margem inferior do <footer> */
  #wrap>span {
    font-size: 1px;
+ }
+ 
+ /************************************
+  * Experimental - CSS Menu dropdown *
+  ************************************/
+ 
+ #dropable {
+   position: absolute;
+   padding: 1rem;
+   background: rgba(0, 0, 0, .4);
+   border-radius: .5rem 0 0 .5rem;
+   z-index: 10;
+ 
+   /* Menu oculto por padrão */
+   display: none;
+ 
+   /* Altura do menu */
+   top: 11.9rem;
+ 
+   /* Menu abre à partir da direita */
+   right: 0;
+ }
+ 
+ /* Separador dos itens do menu */
+ #dropable hr {
+   border: none;
+   margin: 0;
+   border-bottom: 1px dotted plum;
+   background-color: purple;
+ }
+ 
+ #dropable nav {
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ #dropable nav a {
+   padding: 1rem;
+   color: rgb(252, 226, 252);
+   display: flex;
+   align-items: center;
+   background-color: purple;
+ }
+ 
+ /* Arredonda bordas */
+ #dropable nav a:first-child {
+   border-radius: .5rem .5rem 0 0;
+ }
+ 
+ #dropable nav a:last-child {
+   border-radius: 0 0 .5rem .5rem;
+ }
+ 
+ #dropable nav a:hover {
+   background: rgb(252, 226, 252);
+   color: purple;
+ }
+ 
+ #dropable nav i {
+   font-size: 1.2rem;
+ }
+ 
+ #dropable nav span {
+   margin-left: .5rem;
+ }
+ 
+ /* Animação do botão do menu */
+ #btnMenu i {
+   transition: .2s;
  }
