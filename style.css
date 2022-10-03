@@ -452,9 +452,13 @@ body {
  **************************/
 
 #acCookies {
+  display: none;
   position: fixed;
   bottom: 0;
-  left: 0;
+  width: 100%;  
+}
+
+.cookieBody {
   background-color: rgba(0, 0, 0, .5);
   padding: 1rem;
 }
@@ -462,9 +466,36 @@ body {
 .cookieBox {
   background-color: rgb(255, 224, 255);
   padding: .6rem;
+  border-radius: .5rem;
+  max-width: 988px;
+  margin: auto;
 }
 
 .cookieBox button {
   display: block;
   margin: auto;
+  margin-top: .5rem;
+  background: linear-gradient(rgb(232, 1, 232), rgb(74, 0, 74));
+  color: white;
+  border: none;
+  box-shadow: 5px 5px 10px 0px rgba(138, 138, 138, 1);
+  cursor: pointer;
+  padding: .25rem .5rem;
+  border-radius: .3rem;
+}
+
+.cookieBox button:hover {
+  background: linear-gradient(rgb(255, 89, 255), rgb(139, 0, 139));
+}
+
+@media (min-width: 575px) {
+  .cookieBox {
+    display: flex;
+    align-items: center;
+  }
+
+  .cookieBox button {
+    margin: 0;
+    margin-left: 1rem;
+  }
 }

@@ -53,7 +53,7 @@ div[data-href="contacts"] .card-img {
     background-image: url('/img/contacts.jpg');
 }
 
-@media (min-width: 578px) {
+@media (min-width: 480px) {
 
     .grid {
         grid-template-columns: auto auto;
