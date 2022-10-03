@@ -19,10 +19,10 @@
  * runApp() → Aplicativo principal
  * Este aplicativo é executado pela última linha deste código.
  */
- function runApp() {
+function runApp() {
 
   // Carrega a página inicial do site quando este iniciar:
-  loadPage('about');
+  loadPage('home');
 
   /**
    * jQuery → Quando houver click em um elemento <a>, execute o aplicativo 
@@ -30,10 +30,10 @@
    **/
   $(document).on('click', 'a', routerLink);
 
-  // Prepara o menu dropdown:
+  // Prepara o menu dropdown para exibição correta conforme a largura da tela:
   resize();
 
-  // Se a largura da tela mudar, reajusta o menu dropdown:
+  // Se a largura da tela mudar durante a execução, reajusta o menu dropdown:
   $(window).resize(resize);
 
 }
@@ -43,31 +43,33 @@
  */
 function routerLink() {
 
-  // Quando acessa qualquer link, oculta o menu dropdown:
+  // Quando clica em qualquer link, oculta o menu dropdown:
   hideMenu();
 
   /**
-   * jQuery → Recebe o atributo "href" do link clicado e armazena em 'href':
-   * A função "$(this)" faz referência ao elemento que foi clicado e disparou 
-   * este processo.
+   * jQuery → Recebe o atributo (attr()) "href" do link clicado e armazena 
+   * em 'href'. A função "$(this)" faz referência ao elemento que foi clicado
+   * e disparou este processo.
    **/
   var href = $(this).attr('href');
 
-  // Se o link clicado é o botão do menu...
+  // Se o link clicado é o botão do menu (href="menu")...
   if (href == 'menu') {
 
-    // Chama a função que controla o menu dropdown:
+    // Chama a função que controla a exibição do menu dropdown:
     toggleMenu();
 
-    // Sai deste aplicativo sem fazer mais nada:
+    // Sai de "routerLink()" sem fazer mais nada (false):
     return false;
   }
 
   /**
    * Se faz referência a link externo que começa com "http://" OU "https://",
-   * ou faz referência a uma âncora que começa com "#"...
+   * OU faz referência a uma âncora que começa com "#"...
    * 
    * OBS: O código "||" (pipe pipe) significa o "OU" (OR) lógico em JavaScript.
+   * Para OU (||) se apenas uma das subexpressões é verdadeira (true) toda a 
+   * expressão será verdadeira.
    * 
    * Referências: 
    *    https://youtu.be/mp3g9IQ651g
@@ -75,10 +77,10 @@ function routerLink() {
    *    https://www.w3schools.com/js/js_if_else.asp
    **/
   if (
-    // Se clicou em um link que começa com "http://...", OU
+    // Se clicou em um link que começa com "http://", OU
     href.substr(0, 7) == 'http://' ||
 
-    // Se clicou em um link que começa com "https://...", OU
+    // Se clicou em um link que começa com "https://", OU
     href.substr(0, 8) == 'https://' ||
 
     // Se clicou em uma âncora que começa com "#"...
@@ -86,8 +88,8 @@ function routerLink() {
   ) {
 
     /**
-     * Encerra o programa retornando "true" (verdade) para que o HTML abra o 
-     * link normalmente:
+     * Encerra "routerLink()" retornando "true" (verdade) para que o HTML abra 
+     * o link normalmente:
      **/
     return true;
   }
@@ -99,8 +101,8 @@ function routerLink() {
   loadPage(href);
 
   /**
-   * Encerra o programa retornando "false" (falso) para que a ação do HTML ao
-   * clicar no link seja bloqueada:
+   * Encerra "routerLink()" retornando "false" (falso) para que a ação do HTML
+   * ao clicar no link seja bloqueada:
    **/
   return false;
 }
@@ -140,7 +142,7 @@ function loadPage(href) {
 /**
  * setTitle() → Aplicativo que troca o <title> do documento conforme cada 
  * página é acessada. Para isso, inclua a chamada "setTitle('Titulo')" em cada
- * arquivo "script.js" de cada página.
+ * arquivo "script.js" de cada página dentro da pasta "pages".
  */
 function setTitle(title = '') {
 
